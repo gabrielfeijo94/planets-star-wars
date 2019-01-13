@@ -2,18 +2,20 @@ package br.com.b2w.planets.star.wars.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="Planet")
 public class Planet implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Id
 	private String id;
 	private String nome;
 	private String clima;
 	private String terreno;
 	
-	
-	
-
 	public Planet() {
 		
 	}
