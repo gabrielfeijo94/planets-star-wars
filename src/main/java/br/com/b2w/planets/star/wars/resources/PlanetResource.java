@@ -1,6 +1,7 @@
 package br.com.b2w.planets.star.wars.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.b2w.planets.star.wars.domain.Planet;
+import br.com.b2w.planets.star.wars.dto.PlanetDTO;
 import br.com.b2w.planets.star.wars.service.PlanetService;
 
 @RestController
@@ -19,10 +21,11 @@ public class PlanetResource {
 	PlanetService service;
 	
 	@RequestMapping(method= RequestMethod.GET)
-	public ResponseEntity<List<Planet>> findAll(){
+	public ResponseEntity<List<PlanetDTO>> findAll(){
 		
 		List<Planet> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<PlanetDTO> listDTO = list.stream().map(data -> new PlanetDTO(data)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 
 	}
 }
