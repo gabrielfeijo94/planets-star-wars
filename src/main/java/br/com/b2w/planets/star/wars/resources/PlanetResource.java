@@ -53,4 +53,12 @@ public class PlanetResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value="/{id}", method= RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody PlanetDTO objDto, @PathVariable String id){
+		Planet planet = service.fromDTO(objDto);
+		planet.setId(id);
+		planet = service.update(planet);
+		return ResponseEntity.noContent().build();
+	}
 }

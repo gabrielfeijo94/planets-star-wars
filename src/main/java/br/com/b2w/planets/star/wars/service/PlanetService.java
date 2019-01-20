@@ -30,12 +30,25 @@ public class PlanetService {
 		return repo.insert(planet);
 	}
 	
-	public Planet fromDTO(PlanetDTO objDto) {
-		return new Planet(objDto.getId(),objDto.getNome(),objDto.getClima(),objDto.getTerreno());
-	}
-	
 	public void delete(String id) {
 		findById(id);
 		repo.deleteById(id);
 	}
+	
+	public Planet update(Planet planet) {
+		Planet newPlanet = findById(planet.getId());
+		updateData(newPlanet, planet);
+		return repo.save(newPlanet);
+	}
+	private void updateData(Planet newPlanet, Planet planet) {
+		newPlanet.setNome(planet.getNome());
+		newPlanet.setClima(planet.getClima());
+		newPlanet.setTerreno(planet.getTerreno());
+	}
+
+	public Planet fromDTO(PlanetDTO objDto) {
+		return new Planet(objDto.getId(),objDto.getNome(),objDto.getClima(),objDto.getTerreno());
+	}
+	
+	
 }
